@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:glob="http://sap.com/xi/SAPGlobal20/Global" xmlns:a19="http://sap.com/xi/AP/CustomerExtension/BYD/A198N">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<glob:MarketingLeadBundleMaintainRequest_sync>
+			<MarketingLead>
+				<Name>Lead</Name>
+				<OriginTypeCode>ZXX</OriginTypeCode>
+				<GroupCode/>
+				<StartDate>2016-07-21</StartDate>
+				<EndDate/>
+				<EmployeeInternalID>XX</EmployeeInternalID>
+				<Note/>
+				<UseExistingAccountContactIndicator>true</UseExistingAccountContactIndicator>
+				<ProspectParty actionCode="01">
+					<AccountInternalID>60000XXXX</AccountInternalID>
+				</ProspectParty>
+				<a19:Type>XXX</a19:Type>
+			</MarketingLead>
+		</glob:MarketingLeadBundleMaintainRequest_sync>
+	</soapenv:Body>
+</soapenv:Envelope>
