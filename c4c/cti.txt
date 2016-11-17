@@ -1,0 +1,6 @@
+CTI Client adapter url
+
+http://localhost:36729/?CID=CISCO9876&ANI=07111111111&DNIS=07222222222
+
+CTI log location 
+C:\Users\<windows user>\AppData\Local\SAP\SAPC4CClientAdapter\log
