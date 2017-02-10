@@ -1,0 +1,49 @@
+import ABSL;
+import AP.FO.BusinessPartner.Global;
+import AP.PC.IdentityManagement.Global;
+
+var qryIdentity_ROOT_QueryByElements;
+var selParamsIdentity_Root_QueryByElements;
+var colIdentity_Root;
+var qryEmployee_Root_QueryByIdentification;
+var selParamsEmployee_Root_QueryByIdentification;
+var colEmployee_Root;
+var attrIdentity_Root_UUID;
+var instIdentity_Root;
+
+
+// get UUID of current Identity
+attrIdentity_Root_UUID = Context.GetCurrentIdentityUUID();
+
+// get instance of current identity
+
+qryIdentity_ROOT_QueryByElements = Identity.QueryByElements;
+selParamsIdentity_Root_QueryByElements = qryIdentity_ROOT_QueryByElements.CreateSelectionParams();
+selParamsIdentity_Root_QueryByElements.Add(qryIdentity_ROOT_QueryByElements.UUID.content, "I", "EQ", attrIdentity_Root_UUID.content);
+colIdentity_Root = qryIdentity_ROOT_QueryByElements.Execute(selParamsIdentity_Root_QueryByElements);
+foreach (instIdentity_Root in colIdentity_Root) {
+	break;
+}
+
+var myEmployee:Employee;
+
+// get employee instance and his birthday via identity instance unsing QueryByIdentification at the Root node
+if (instIdentity_Root.IsSet() ) {
+  qryEmployee_Root_QueryByIdentification = Employee.QueryByIdentification;
+  selParamsEmployee_Root_QueryByIdentification = qryEmployee_Root_QueryByIdentification.CreateSelectionParams();
+  selParamsEmployee_Root_QueryByIdentification.Add(qryEmployee_Root_QueryByIdentification.UUID.content, "I", "EQ", instIdentity_Root.BusinessPartnerUUID.content);
+  colEmployee_Root = qryEmployee_Root_QueryByIdentification.Execute(selParamsEmployee_Root_QueryByIdentification);
+  
+  foreach (var instEmployee_Root in colEmployee_Root) {
+	//instEmployee_Root.CurrentCommon.Person.BirthDate;
+    myEmployee = instEmployee_Root;
+	break; // colEmployee_Root should contain exactly one employee 
+  }
+}
+
+var t1 = myEmployee.CurrentOrganisationalUnitAssignment.ToRoot;
+var t2 = t1.CurrentFunctionalManager;
+var myManager = myEmployee.CurrentOrganisationalUnitAssignment.ToRoot.CurrentFunctionalManager.Employee;
+
+
+var a = 1;
