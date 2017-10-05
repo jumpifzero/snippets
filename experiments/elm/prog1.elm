@@ -31,6 +31,7 @@ view model =
   div []
     [ input [ placeholder "Number of characters", onInput LengthChange ] []
     , button [ onClick Generate ] [ text "Generate" ]
+    , text model.password
     ]
 
 
@@ -43,6 +44,6 @@ update msg model =
   case msg of 
     Generate ->
       { model | password = generateRandomPassword }
-    
+    -- String.toInt can fail. It returns a Result so we convert to maybe and set a default 
     LengthChange len -> 
-      { model | length = len }
+      { model | length = (String.toInt len |> Result.toMaybe |> Maybe.withDefault 8) }
