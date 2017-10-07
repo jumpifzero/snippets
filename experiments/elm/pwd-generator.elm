@@ -67,7 +67,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of 
     Generate ->
-      ({model | password = ""}, Random.generate NewRandomChar (Random.Char.char 32 126))
+      ({model | password = ""}, Random.generate NewRandomChar (Random.Char.ascii))
     -- String.toInt can fail. It returns a Result so we convert to maybe and set a default 
 
     LengthChange len ->
