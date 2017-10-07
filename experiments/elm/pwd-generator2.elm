@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 import Random
 import Random.Char
 import Debug
-
+import Char
 
 main =
   program 
@@ -60,6 +60,12 @@ view model =
 
 
 
+printableChar : Char -> Bool
+printableChar char =
+    let
+        asciiCode = Char.toCode char
+    in
+        asciiCode >= 33 && asciiCode <= 126
 
 -- ======================================================================
 -- Update
@@ -85,7 +91,7 @@ update msg model =
             log = Debug.log "NewRandomChar" char
         in
             (
-             {model | password = model.password ++ String.fromChar char},
+             {model | password = model.password ++ if printableChar char then String.fromChar char else ""},
              if String.length model.password == (model.length - 1) then
                  Cmd.none
              else
